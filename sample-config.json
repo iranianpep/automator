@@ -1,0 +1,65 @@
+{
+  "vars": {
+    "sudo": true,
+    "debug": false,
+    "doc_root": "/var/www/html/"
+  },
+  "tasks": [
+    {
+      "execs": [
+        {
+          "name": "apt-get update",
+          "action": "apt-get update -y"
+        }
+      ],
+      "packages": [
+        {
+          "name": "apache2",
+          "action": "install",
+          "version": "latest",
+          "after_tasks": [
+            {
+              "services": [
+                {
+                  "name": "apache2",
+                  "ensure": "running"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "curl",
+          "action": "install",
+          "version": "latest"
+        },
+        {
+          "name": "php",
+          "action": "install",
+          "version": "latest",
+          "after_tasks": [
+            {
+              "services": [
+                {
+                  "name": "php7.0-fpm",
+                  "ensure": "running"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "services": [
+        {
+          "name": "apache2",
+          "ensure": "running"
+        }
+      ],
+      "files": [
+        {
+
+        }
+      ]
+    }
+  ]
+}
