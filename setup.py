@@ -8,7 +8,7 @@ from shutil import rmtree
 from setuptools import find_packages, setup, Command
 
 # Package meta-data.
-NAME = 'automator'
+NAME = 'cm-automator'
 DESCRIPTION = 'A too to automate infrastructure tasks'
 URL = 'https://github.com/iranianpep/automator'
 EMAIL = 'ehsan.abb@gmail.com'
