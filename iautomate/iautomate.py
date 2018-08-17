@@ -7,7 +7,7 @@ from resources.package import Package
 from resources.execution import Execution
 
 
-class Automator(object):
+class IAutomate(object):
     def __init__(self, config_file):
         self.config_file = config_file
         self.config = self.__parse_config_file()

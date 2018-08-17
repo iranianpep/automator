@@ -1,7 +1,7 @@
 import unittest
 from collections import OrderedDict
 
-from automator.resources.package import Package
+from iautomate.resources.package import Package
 
 
 class TestAbstractModel(unittest.TestCase):

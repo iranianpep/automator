@@ -2,7 +2,7 @@ import unittest
 import mock
 
 
-from automator.helpers.shell_helper import ShellHelper
+from iautomate.helpers.shell_helper import ShellHelper
 
 
 class TestShellHelper(unittest.TestCase):

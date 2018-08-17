@@ -10,7 +10,7 @@ from setuptools import find_packages, setup, Command
 # Package meta-data.
 NAME = 'iautomate'
 DESCRIPTION = 'A too to automate infrastructure tasks'
-URL = 'https://github.com/iranianpep/automator'
+URL = 'https://github.com/iranianpep/iautomate'
 EMAIL = 'ehsan.abb@gmail.com'
 AUTHOR = 'Ehsan Abbasi'
 REQUIRES_PYTHON = '>=2.7.0'
