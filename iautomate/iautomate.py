@@ -3,6 +3,7 @@ import os
 from collections import OrderedDict
 
 from execution_resource import ExecutionResource
+from file_resource import FileResource
 from package_resource import PackageResource
 from service_resource import ServiceResource
 
@@ -58,41 +59,53 @@ class IAutomate(object):
         else:
             return False
 
-    # handle executions
+    # handle execution resource
     def __handle_execs(self, execs):
         for execution in execs:
             self.__handle_exec(execution)
 
-    # handle execution
+    # handle execution resource
     def __handle_exec(self, execution):
         # instantiate execution model and run it
         execution = ExecutionResource(execution, self.config.get('vars', None))
         execution.run()
 
-    # handle packages
+    # handle package resource
     def __handle_packages(self, packages):
         for package in packages:
             self.__handle_package(package)
 
-    # handle package
+    # handle package resource
     def __handle_package(self, package):
         # instantiate package model and run it
         package = PackageResource(package, self.config.get('vars', None))
         package.run()
 
-    # handle services
+    # handle service resource
     def __handle_services(self, services):
         for service in services:
             self.__handle_service(service)
 
-    # handle service
+    # handle service resource
     def __handle_service(self, service):
         # instantiate service model and run it
         service = ServiceResource(service, self.config.get('vars', None))
         service.run()
 
+    # handle file resources
+    def __handle_files(self, files):
+        # iterate through the files
+        for file in files:
+            self.__handle_file(file)
+
+    # handle file resource
+    def __handle_file(self, file_properties):
+        # instantiate file model and run it
+        file_resource = FileResource(file_properties, self.config.get('vars', None))
+        file_resource.run()
+
     def __handle_tasks(self, tasks):
-        # iterate through the task
+        # iterate through the tasks
         for task in tasks:
             self.__handle_task(task)
 
@@ -108,6 +121,9 @@ class IAutomate(object):
             elif config_type == 'services':
                 print('| Handling services ...')
                 self.__handle_services(properties)
+            elif config_type == 'files':
+                print('| Handling files ...')
+                self.__handle_files(properties)
             else:
                 # unsupported resource
                 print('Unsupported resource: ' + config_type)
