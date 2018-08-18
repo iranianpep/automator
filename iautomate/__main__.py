@@ -1,5 +1,6 @@
 import sys
 from iautomate import IAutomate
+import traceback
 
 
 def main():
@@ -15,6 +16,7 @@ def main():
         iautomate.run()
     except Exception, e:
         print('Error: ' + e.message)
+        print(traceback.format_exc())
 
 
 if __name__ == '__main__':
