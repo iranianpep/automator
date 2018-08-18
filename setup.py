@@ -81,6 +81,11 @@ setup(
     python_requires=REQUIRES_PYTHON,
     url=URL,
     packages=find_packages(exclude=('tests',)),
+    entry_points={
+        "console_scripts": [
+            "iautomate = iautomate.__main__:main",
+        ],
+    },
     install_requires=REQUIRED,
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
