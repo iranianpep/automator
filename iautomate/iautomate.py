@@ -2,9 +2,9 @@ import json
 import os
 from collections import OrderedDict
 
-from execution import Execution
-from package import Package
-from service import Service
+from execution_resource import ExecutionResource
+from package_resource import PackageResource
+from service_resource import ServiceResource
 
 
 class IAutomate(object):
@@ -66,7 +66,7 @@ class IAutomate(object):
     # handle execution
     def __handle_exec(self, execution):
         # instantiate execution model and run it
-        execution = Execution(execution, self.config.get('vars', None))
+        execution = ExecutionResource(execution, self.config.get('vars', None))
         execution.run()
 
     # handle packages
@@ -77,7 +77,7 @@ class IAutomate(object):
     # handle package
     def __handle_package(self, package):
         # instantiate package model and run it
-        package = Package(package, self.config.get('vars', None))
+        package = PackageResource(package, self.config.get('vars', None))
         package.run()
 
     # handle services
@@ -88,7 +88,7 @@ class IAutomate(object):
     # handle service
     def __handle_service(self, service):
         # instantiate service model and run it
-        service = Service(service, self.config.get('vars', None))
+        service = ServiceResource(service, self.config.get('vars', None))
         service.run()
 
     def __handle_tasks(self, tasks):

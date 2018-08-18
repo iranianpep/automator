@@ -1,9 +1,9 @@
 from abstract_resource import AbstractResource
 
 
-class Directory(AbstractResource):
+class DirectoryResource(AbstractResource):
     def __init__(self, properties, global_variables=None):
-        super(Directory, self).__init__(properties, global_variables)
+        super(DirectoryResource, self).__init__(properties, global_variables)
 
     def run(self):
         pass

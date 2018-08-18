@@ -1,8 +1,8 @@
 {
   "vars": {
     "sudo": true,
-    "debug": false,
-    "doc_root": "/var/www/html/"
+    "debug": true,
+    "doc_root": "/var/www/html"
   },
   "tasks": [
     {
@@ -57,7 +57,12 @@
       ],
       "files": [
         {
-
+          "name": "{$doc_root}/index.php",
+          "source": "/var/index.php",
+          "action": "create",
+          "owner": "www-data",
+          "group": "www-data",
+          "mode": 644
         }
       ]
     }

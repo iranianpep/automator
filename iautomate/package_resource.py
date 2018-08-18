@@ -2,9 +2,9 @@ from package_helper import PackageHelper
 from abstract_resource import AbstractResource
 
 
-class Package(AbstractResource):
+class PackageResource(AbstractResource):
     def __init__(self, properties, global_variables=None):
-        super(Package, self).__init__(properties, global_variables)
+        super(PackageResource, self).__init__(properties, global_variables)
         self.version = properties.get('version', None)
         self.after_tasks = properties.get('after_tasks', None)
 
