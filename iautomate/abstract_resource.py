@@ -11,7 +11,7 @@ class AbstractResource(object):
         self.properties = properties
         self.global_variables = global_variables
         self.name = properties['name']
-        self.action = properties['action']
+        self.action = properties.get('action', None)
         self.sudo = properties.get('sudo', None)
 
     @property
