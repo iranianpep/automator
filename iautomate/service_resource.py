@@ -16,7 +16,12 @@ class ServiceResource(AbstractResource):
 
     # compare the service status with the given status
     def is_current_status_right(self):
-        return True if self.current_status() == self.ensure else False
+        if self.ensure == 'restarted':
+            status = 'running'
+        else:
+            status = self.ensure
+
+        return True if self.current_status() == status else False
 
     # check a service status e.g. running, dead
     def current_status(self):
