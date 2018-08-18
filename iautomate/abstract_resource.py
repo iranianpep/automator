@@ -1,10 +1,12 @@
 from abc import ABCMeta, abstractmethod
 
-from shell_helper import ShellHelper
+import shell_helper
 
 
 class AbstractResource(object):
     __metaclass__ = ABCMeta
+
+    AFTER_TASKS_KEY = 'after_tasks'
 
     @abstractmethod
     def __init__(self, properties, global_variables=None):
@@ -74,7 +76,7 @@ class AbstractResource(object):
         # determine sudo
         sudo = 'sudo ' if self.is_sudo_enabled() is True else ''
 
-        output = ShellHelper.run_command(sudo + command)
+        output = shell_helper.ShellHelper.run_command(sudo + command)
         if self.is_debug_mode() is True:
             print('* Running: ' + command)
             print('** Output: ')

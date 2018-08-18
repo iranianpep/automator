@@ -1,7 +1,7 @@
-from abstract_resource import AbstractResource
+import abstract_resource
 
 
-class ExecutionResource(AbstractResource):
+class ExecutionResource(abstract_resource.AbstractResource):
     def __init__(self, properties, global_variables=None):
         super(ExecutionResource, self).__init__(properties, global_variables)
 

@@ -47,6 +47,21 @@
               ]
             }
           ]
+        },
+        {
+          "name": "libapache2-mod-php7.0",
+          "action": "install",
+          "version": "latest",
+          "after_tasks": [
+            {
+              "services": [
+                {
+                  "name": "apache2",
+                  "ensure": "restarted"
+                }
+              ]
+            }
+          ]
         }
       ],
       "services": [
@@ -63,6 +78,10 @@
           "owner": "www-data",
           "group": "www-data",
           "mode": 644
+        },
+        {
+          "name": "{$doc_root}/index.html",
+          "action": "remove"
         }
       ]
     }

@@ -1,8 +1,8 @@
-from package_helper import PackageHelper
-from abstract_resource import AbstractResource
+import package_helper
+import abstract_resource
 
 
-class PackageResource(AbstractResource):
+class PackageResource(abstract_resource.AbstractResource):
     def __init__(self, properties, global_variables=None):
         super(PackageResource, self).__init__(properties, global_variables)
         self.version = properties.get('version', None)
@@ -33,12 +33,12 @@ class PackageResource(AbstractResource):
 
     def run(self):
         if self.action == 'install':
-            if PackageHelper.is_package_installed(self.name) is True:
+            if package_helper.PackageHelper.is_package_installed(self.name) is True:
                 print('Ignoring installing *' + self.name + '*. It is already installed.')
             else:
                 self._run_shell_command('apt-get install -y ' + self.name + self.__package_version())
         elif self.action == 'remove':
-            if PackageHelper.is_package_installed(self.name) is False:
+            if package_helper.PackageHelper.is_package_installed(self.name) is False:
                 print('Ignoring removing *' + self.name + '*. It is not installed.')
             else:
                 self._run_shell_command('apt-get purge -y --auto-remove ' + self.name)

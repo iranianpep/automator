@@ -2,13 +2,19 @@ import json
 import os
 from collections import OrderedDict
 
-from execution_resource import ExecutionResource
-from file_resource import FileResource
-from package_resource import PackageResource
-from service_resource import ServiceResource
+import abstract_resource
+import execution_resource
+import file_resource
+import package_resource
+import service_resource
 
 
 class IAutomate(object):
+    VARS_KEY = 'vars'
+    DEBUG_KEY = 'debug'
+    SUDO_KEY = 'sudo'
+    TASKS_KEY = 'tasks'
+
     def __init__(self, config_file):
         self.config_file = config_file
         self.config = self.__parse_config_file()
@@ -43,7 +49,7 @@ class IAutomate(object):
 
     # is in debug mode
     def is_debug_mode(self):
-        if 'vars' in self.config and 'debug' in self.config['vars'] and self.config['vars']['debug'] is True:
+        if self.VARS_KEY in self.config and self.DEBUG_KEY in self.config[self.VARS_KEY] and self.config[self.VARS_KEY][self.DEBUG_KEY] is True:
             return True
         else:
             return False
@@ -54,7 +60,7 @@ class IAutomate(object):
         if resource_sudo is True or resource_sudo is False:
             return resource_sudo
 
-        if 'vars' in self.config and 'sudo' in self.config['vars'] and self.config['vars']['sudo'] is True:
+        if self.VARS_KEY in self.config and self.SUDO_KEY in self.config[self.VARS_KEY] and self.config[self.VARS_KEY][self.SUDO_KEY] is True:
             return True
         else:
             return False
@@ -65,10 +71,13 @@ class IAutomate(object):
             self.__handle_exec(execution)
 
     # handle execution resource
-    def __handle_exec(self, execution):
+    def __handle_exec(self, execution_properties):
         # instantiate execution model and run it
-        execution = ExecutionResource(execution, self.config.get('vars', None))
+        execution = execution_resource.ExecutionResource(execution_properties, self.config.get(self.VARS_KEY, None))
         execution.run()
+
+        if execution_properties.get(abstract_resource.AbstractResource.AFTER_TASKS_KEY, None):
+            self.__handle_tasks(execution_properties.get(abstract_resource.AbstractResource.AFTER_TASKS_KEY))
 
     # handle package resource
     def __handle_packages(self, packages):
@@ -76,10 +85,13 @@ class IAutomate(object):
             self.__handle_package(package)
 
     # handle package resource
-    def __handle_package(self, package):
+    def __handle_package(self, package_properties):
         # instantiate package model and run it
-        package = PackageResource(package, self.config.get('vars', None))
+        package = package_resource.PackageResource(package_properties, self.config.get(self.VARS_KEY, None))
         package.run()
+
+        if package_properties.get(abstract_resource.AbstractResource.AFTER_TASKS_KEY, None):
+            self.__handle_tasks(package_properties.get(abstract_resource.AbstractResource.AFTER_TASKS_KEY))
 
     # handle service resource
     def __handle_services(self, services):
@@ -87,10 +99,13 @@ class IAutomate(object):
             self.__handle_service(service)
 
     # handle service resource
-    def __handle_service(self, service):
+    def __handle_service(self, service_properties):
         # instantiate service model and run it
-        service = ServiceResource(service, self.config.get('vars', None))
+        service = service_resource.ServiceResource(service_properties, self.config.get(self.VARS_KEY, None))
         service.run()
+
+        if service_properties.get(abstract_resource.AbstractResource.AFTER_TASKS_KEY, None):
+            self.__handle_tasks(service_properties.get(abstract_resource.AbstractResource.AFTER_TASKS_KEY))
 
     # handle file resources
     def __handle_files(self, files):
@@ -101,8 +116,11 @@ class IAutomate(object):
     # handle file resource
     def __handle_file(self, file_properties):
         # instantiate file model and run it
-        file_resource = FileResource(file_properties, self.config.get('vars', None))
-        file_resource.run()
+        file_resource_obj = file_resource.FileResource(file_properties, self.config.get(self.VARS_KEY, None))
+        file_resource_obj.run()
+
+        if file_properties.get(abstract_resource.AbstractResource.AFTER_TASKS_KEY, None):
+            self.__handle_tasks(file_properties.get(abstract_resource.AbstractResource.AFTER_TASKS_KEY))
 
     def __handle_tasks(self, tasks):
         # iterate through the tasks
@@ -131,4 +149,4 @@ class IAutomate(object):
     # run the tasks in the config file
     def run(self):
         print('Processing the config file ...')
-        self.__handle_tasks(self.config['tasks'])
+        self.__handle_tasks(self.config[self.TASKS_KEY])

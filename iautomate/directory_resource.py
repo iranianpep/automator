@@ -1,7 +1,7 @@
-from abstract_resource import AbstractResource
+import abstract_resource
 
 
-class DirectoryResource(AbstractResource):
+class DirectoryResource(abstract_resource.AbstractResource):
     def __init__(self, properties, global_variables=None):
         super(DirectoryResource, self).__init__(properties, global_variables)
 

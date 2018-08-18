@@ -1,9 +1,9 @@
-from abstract_resource import AbstractResource
-from string_helper import StringHelper
+import abstract_resource
+import string_helper
 import os
 
 
-class FileResource(AbstractResource):
+class FileResource(abstract_resource.AbstractResource):
     def __init__(self, properties, global_variables=None):
         super(FileResource, self).__init__(properties, global_variables)
         self.owner = properties.get('owner', None)
@@ -18,7 +18,7 @@ class FileResource(AbstractResource):
         original_name = self.__name
 
         if self.global_variables and 'doc_root' in self.global_variables:
-            return StringHelper.replace_placeholder(original_name, '{$doc_root}', self.global_variables['doc_root'])
+            return string_helper.StringHelper.replace_placeholder(original_name, '{$doc_root}', self.global_variables['doc_root'])
         else:
             return self.__name
 
@@ -45,7 +45,7 @@ class FileResource(AbstractResource):
 
     @property
     def mode(self):
-        return self.__mode
+        return str(self.__mode)
 
     @mode.setter
     def mode(self, mode):
@@ -80,3 +80,9 @@ class FileResource(AbstractResource):
 
             # set mode
             self._run_shell_command('chmod ' + self.mode + ' ' + self.name)
+        elif self.action == 'remove':
+            # check if the source file exists
+            if os.path.isfile(self.source) is True:
+                self._run_shell_command('rm ' + self.source)
+
+                # check if the file has been removed
