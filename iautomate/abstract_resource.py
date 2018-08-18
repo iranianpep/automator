@@ -77,16 +77,15 @@ class AbstractResource(object):
         sudo = 'sudo ' if self.is_sudo_enabled() is True else ''
 
         output = shell_helper.ShellHelper.run_command(sudo + command)
-        if self.is_debug_mode() is True and output is not None:
+        if self.is_debug_mode() is True:
             print('* Running: ' + command)
-            print('** Output: ')
-            print(output)
+
+            if output:
+                print('** Output: ')
+                print(output)
 
         # make sure there is no whitespace in the output
-        if output is not None:
-            output = output.strip()
-
-        return output
+        return output.strip()
 
     # is in debug mode
     def is_debug_mode(self):

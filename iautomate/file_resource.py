@@ -82,7 +82,7 @@ class FileResource(abstract_resource.AbstractResource):
             self._run_shell_command('chmod ' + self.mode + ' ' + self.name)
         elif self.action == 'remove':
             # check if the source file exists
-            if os.path.isfile(self.source) is True:
-                self._run_shell_command('rm ' + self.source)
+            if os.path.isfile(self.name) is True:
+                self._run_shell_command('rm ' + self.name)
 
                 # check if the file has been removed
