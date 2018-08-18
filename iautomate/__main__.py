@@ -12,7 +12,7 @@ def main():
 
     try:
         iautomate = IAutomate(config_file)
-        # iautomate.run()
+        iautomate.run()
     except Exception, e:
         print('Error: ' + e.message)
 
