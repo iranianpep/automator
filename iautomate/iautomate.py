@@ -2,9 +2,9 @@ import json
 import os
 from collections import OrderedDict
 
-from resources.service import Service
-from resources.package import Package
-from resources.execution import Execution
+from execution import Execution
+from package import Package
+from service import Service
 
 
 class IAutomate(object):

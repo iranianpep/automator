@@ -82,6 +82,8 @@ setup(
     url=URL,
     packages=find_packages(exclude=('tests',)),
     install_requires=REQUIRED,
+    setup_requires=['pytest-runner'],
+    tests_require=['pytest'],
     include_package_data=True,
     license='MIT',
     classifiers=[

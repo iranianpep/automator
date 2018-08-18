@@ -1,5 +1,5 @@
+from package_helper import PackageHelper
 from abstract_resource import AbstractResource
-from iautomate.helpers.package_helper import PackageHelper
 
 
 class Package(AbstractResource):
