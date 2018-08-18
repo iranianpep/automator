@@ -1,10 +1,11 @@
 import sys
 from iautomate import IAutomate
 
-def main(args):
+
+def main():
     # check config file is provided
     try:
-        config_file = args[1]
+        config_file = sys.argv[1]
     except IndexError:
         print('Error: Config file is missing')
         return
@@ -17,4 +18,4 @@ def main(args):
 
 
 if __name__ == '__main__':
-    main(sys.argv)
+    sys.exit(main())
