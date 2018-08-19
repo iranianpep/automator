@@ -4,7 +4,7 @@ from collections import OrderedDict
 from iautomate.package_resource import PackageResource
 
 
-class TestAbstractModel(unittest.TestCase):
+class TestAbstractResource(unittest.TestCase):
     def setUp(self):
         self.properties = OrderedDict([('name', 'apache2'), ('action', 'install'), ('after_tasks', 'dummy')])
         self.properties_with_sudo_true = OrderedDict([('name', 'apache2'), ('action', 'install'), ('sudo', True)])
