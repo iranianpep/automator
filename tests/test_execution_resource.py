@@ -1,7 +1,7 @@
 import unittest
 import mock
 from collections import OrderedDict
-from iautomate.execution_resource import ExecutionResource
+from iautomate.resources.execution_resource import ExecutionResource
 
 
 class TestExecutionResource(unittest.TestCase):

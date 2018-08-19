@@ -1,6 +1,6 @@
 import unittest
 from collections import OrderedDict
-from iautomate.service_resource import ServiceResource
+from iautomate.resources.service_resource import ServiceResource
 
 
 class TestServiceResource(unittest.TestCase):

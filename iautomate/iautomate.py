@@ -2,11 +2,11 @@ import json
 import os
 from collections import OrderedDict
 
-from . import abstract_resource
-from . import execution_resource
-from . import file_resource
-from . import package_resource
-from . import service_resource
+from .resources import abstract_resource
+from .resources import execution_resource
+from .resources import file_resource
+from .resources import package_resource
+from .resources import service_resource
 
 
 class IAutomate(object):

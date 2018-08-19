@@ -2,7 +2,7 @@ import unittest
 import mock
 
 
-from iautomate.package_helper import PackageHelper
+from iautomate.helpers.package_helper import PackageHelper
 
 
 class TestShellHelper(unittest.TestCase):

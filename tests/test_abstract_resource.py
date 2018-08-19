@@ -1,7 +1,7 @@
 import unittest
 from collections import OrderedDict
 
-from iautomate.package_resource import PackageResource
+from iautomate.resources.package_resource import PackageResource
 
 
 class TestAbstractResource(unittest.TestCase):

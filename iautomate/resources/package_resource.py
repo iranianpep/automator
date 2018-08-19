@@ -1,4 +1,4 @@
-from . import package_helper
+from ..helpers import package_helper
 from . import abstract_resource
 
 

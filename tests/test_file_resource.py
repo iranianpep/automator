@@ -1,6 +1,6 @@
 import unittest
 from collections import OrderedDict
-from iautomate.file_resource import FileResource
+from iautomate.resources.file_resource import FileResource
 
 
 class TestFileResource(unittest.TestCase):
