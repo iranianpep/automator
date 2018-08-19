@@ -11,7 +11,6 @@ class TestFileResource(unittest.TestCase):
         self.assertEquals('/var/www/html/index.php', file_resource.name)
 
         properties = OrderedDict([('name', '/home/ubuntu/index.php'), ('action', 'create')])
-        global_variables = OrderedDict([('doc_root', '/var/www/html')])
         file_resource = FileResource(properties, global_variables)
         self.assertEquals('/home/ubuntu/index.php', file_resource.name)
 

@@ -6,7 +6,7 @@ from iautomate.package_resource import PackageResource
 
 class TestAbstractModel(unittest.TestCase):
     def setUp(self):
-        self.properties = OrderedDict([('name', 'apache2'), ('action', 'install')])
+        self.properties = OrderedDict([('name', 'apache2'), ('action', 'install'), ('after_tasks', 'dummy')])
         self.properties_with_sudo_true = OrderedDict([('name', 'apache2'), ('action', 'install'), ('sudo', True)])
         self.properties_with_sudo_false = OrderedDict([('name', 'apache2'), ('action', 'install'), ('sudo', False)])
         self.global_variables_sudo_true = OrderedDict([('sudo', True), ('debug', True)])
@@ -23,6 +23,10 @@ class TestAbstractModel(unittest.TestCase):
     def test_action(self):
         package = PackageResource(self.properties)
         self.assertEquals(package.action, 'install')
+
+    def test_after_tasks(self):
+        package = PackageResource(self.properties)
+        self.assertEquals(package.after_tasks, 'dummy')
 
     def test_sudo(self):
         package = PackageResource(self.properties)

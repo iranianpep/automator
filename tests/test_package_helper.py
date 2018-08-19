@@ -3,7 +3,6 @@ import mock
 
 
 from iautomate.package_helper import PackageHelper
-from iautomate.shell_helper import ShellHelper
 
 
 class TestShellHelper(unittest.TestCase):
