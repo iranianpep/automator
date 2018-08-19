@@ -28,7 +28,7 @@ class TestAutomator(unittest.TestCase):
     def test_config_empty_value(self):
         try:
             self.iautomate.config = ''
-        except IOError, e:
+        except IOError as e:
             self.assertEquals('Config cannot be empty', e.message)
 
     def test_is_sudo_enabled(self):
