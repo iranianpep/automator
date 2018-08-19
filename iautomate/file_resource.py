@@ -15,9 +15,8 @@ class FileResource(abstract_resource.AbstractResource):
     @property
     def name(self):
         # update the name if doc_root is presented in it
-        original_name = self.__name
-
         if self.global_variables and 'doc_root' in self.global_variables:
+            original_name = self.__name
             return string_helper.StringHelper.replace_placeholder(original_name, '{$doc_root}', self.global_variables['doc_root'])
         else:
             return self.__name

@@ -80,7 +80,7 @@ setup(
     author_email=EMAIL,
     python_requires=REQUIRES_PYTHON,
     url=URL,
-    packages=find_packages(exclude=('tests',)),
+    packages=["iautomate"],
     entry_points={
         "console_scripts": [
             "iautomate = iautomate.__main__:main",
