@@ -75,10 +75,7 @@ class AbstractResource(object):
         if self.sudo is True or self.sudo is False:
             return self.sudo
 
-        if self.global_variables and 'sudo' in self.global_variables and self.global_variables['sudo'] is True:
-            return True
-        else:
-            return False
+        return True if self.global_variables and self.global_variables.is_sudo_enabled() is True else False
 
     # run the shell command and print the output if is in debug mode
     def _run_shell_command(self, command):

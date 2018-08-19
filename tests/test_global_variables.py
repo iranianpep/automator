@@ -27,6 +27,19 @@ class TestGlobalVariables(unittest.TestCase):
         global_variables = GlobalVariables(self.properties7)
         self.assertFalse(global_variables.is_debug_mode())
 
+    def test_is_sudo_enabled(self):
+        global_variables = GlobalVariables(self.properties)
+        self.assertTrue(global_variables.is_sudo_enabled())
+
+        global_variables = GlobalVariables(self.properties2)
+        self.assertFalse(global_variables.is_sudo_enabled())
+
+        global_variables = GlobalVariables(self.properties7)
+        self.assertTrue(global_variables.is_sudo_enabled())
+
+        global_variables = GlobalVariables(self.properties8)
+        self.assertFalse(global_variables.is_sudo_enabled())
+
     def test_sudo(self):
         global_variables = GlobalVariables(self.properties)
         self.assertTrue(global_variables.sudo)

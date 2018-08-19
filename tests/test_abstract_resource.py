@@ -2,6 +2,7 @@ import unittest
 from collections import OrderedDict
 
 from iautomate.resources.package_resource import PackageResource
+from iautomate.global_variables import GlobalVariables
 
 
 class TestAbstractResource(unittest.TestCase):
@@ -9,8 +10,9 @@ class TestAbstractResource(unittest.TestCase):
         self.properties = OrderedDict([('name', 'apache2'), ('action', 'install'), ('after_tasks', 'dummy')])
         self.properties_with_sudo_true = OrderedDict([('name', 'apache2'), ('action', 'install'), ('sudo', True)])
         self.properties_with_sudo_false = OrderedDict([('name', 'apache2'), ('action', 'install'), ('sudo', False)])
-        self.global_variables_sudo_true = OrderedDict([('sudo', True), ('debug', True)])
-        self.global_variables_sudo_false = OrderedDict([('sudo', False), ('debug', False)])
+
+        self.global_variables_sudo_true = GlobalVariables(OrderedDict([('sudo', True), ('debug', True)]))
+        self.global_variables_sudo_false = GlobalVariables(OrderedDict([('sudo', False), ('debug', False)]))
 
     def test_properties(self):
         package = PackageResource(self.properties)
