@@ -1,1 +1,1 @@
-sudo apt-get update && sudo apt install python-pip && sudo pip install --ignore-installed --no-cache-dir iautomate
+sudo apt-get update && sudo apt install python-pip && sudo pip install pip --upgrade && sudo pip install --ignore-installed --no-cache-dir iautomate

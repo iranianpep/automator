@@ -8,31 +8,20 @@
     {
       "files": [
         {
-          "name": "/home/ubuntu/index.php",
+          "name": "/root/index.php",
           "ensure": "present"
-        }
-      ],
-      "directories": [
-        {
-          "name": "{$doc_root}",
-          "action": "remove"
         }
       ]
     },
     {
-      "directories": [
-        {
-          "name": "{$doc_root}",
-          "action": "create",
-          "owner": "www-data",
-          "group": "www-data",
-          "mode": 755
-        }
-      ],
       "execs": [
         {
           "name": "apt-get update",
           "action": "apt-get update -y"
+        },
+        {
+          "name": "iptables -F",
+          "action": "iptables -F"
         }
       ],
       "packages": [
@@ -50,11 +39,6 @@
               ]
             }
           ]
-        },
-        {
-          "name": "curl",
-          "action": "install",
-          "version": "latest"
         },
         {
           "name": "php",
@@ -93,10 +77,29 @@
           "ensure": "running"
         }
       ],
+      "directories": [
+        {
+          "name": "{$doc_root}",
+          "action": "remove",
+          "after_tasks": [
+            {
+              "directories": [
+                {
+                  "name": "{$doc_root}",
+                  "action": "create",
+                  "owner": "www-data",
+                  "group": "www-data",
+                  "mode": 755
+                }
+              ]
+            }
+          ]
+        }
+      ],
       "files": [
         {
           "name": "{$doc_root}/index.php",
-          "source": "/home/ubuntu/index.php",
+          "source": "/root/index.php",
           "action": "create",
           "owner": "www-data",
           "group": "www-data",

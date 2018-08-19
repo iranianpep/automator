@@ -26,10 +26,12 @@ class ServiceResource(abstract_resource.AbstractResource):
     # check a service status e.g. running, dead
     def current_status(self):
         # get service status
-        status = self._run_shell_command('systemctl show -p SubState ' + self.name)
+        status = self._run_shell_command('service ' + self.name + ' status')
 
-        # extract the word after = from status e.g. SubState=running
-        return status.partition('=')[2]
+        if 'is running' in status:
+            return 'running'
+        else:
+            return 'dead'
 
     def run(self):
         if self.is_current_status_right() is False:
