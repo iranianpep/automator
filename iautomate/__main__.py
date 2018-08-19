@@ -21,7 +21,6 @@ def main():
         iautomate.run()
     except Exception as e:
         print('Error: ' + str(e))
-        print(traceback.format_exc())
 
 
 if __name__ == '__main__':
