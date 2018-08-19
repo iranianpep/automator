@@ -15,6 +15,7 @@ class AbstractResource(object):
         self.name = properties['name']
         self.action = properties.get('action', None)
         self.sudo = properties.get('sudo', None)
+        self.after_tasks = properties.get('after_tasks', None)
 
     @property
     def properties(self):
@@ -55,6 +56,14 @@ class AbstractResource(object):
     @global_variables.setter
     def global_variables(self, global_variables):
         self.__global_variables = global_variables
+
+    @property
+    def after_tasks(self):
+        return self.__after_tasks
+
+    @after_tasks.setter
+    def after_tasks(self, after_tasks):
+        self.__after_tasks = after_tasks
 
     @abstractmethod
     def run(self):

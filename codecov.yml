@@ -1,3 +1,4 @@
 ignore:
   - "tests"
   - "setup.py"
+  - "__version__.py"
