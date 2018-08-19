@@ -1,4 +1,4 @@
-import shell_helper
+from . import shell_helper
 
 
 class PackageHelper(object):

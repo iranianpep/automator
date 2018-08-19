@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-import shell_helper
+from . import shell_helper
 
 
 class AbstractResource(object):

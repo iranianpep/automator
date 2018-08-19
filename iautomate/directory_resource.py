@@ -1,4 +1,4 @@
-import abstract_resource
+from . import abstract_resource
 
 
 class DirectoryResource(abstract_resource.AbstractResource):

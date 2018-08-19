@@ -1,4 +1,4 @@
-import abstract_resource
+from . import abstract_resource
 
 
 class ExecutionResource(abstract_resource.AbstractResource):

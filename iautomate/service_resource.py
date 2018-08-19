@@ -1,7 +1,7 @@
-from abstract_resource import AbstractResource
+from . import abstract_resource
 
 
-class ServiceResource(AbstractResource):
+class ServiceResource(abstract_resource.AbstractResource):
     def __init__(self, properties, global_variables=None):
         super(ServiceResource, self).__init__(properties, global_variables)
         self.ensure = properties.get('ensure', None)
