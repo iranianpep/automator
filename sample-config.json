@@ -73,7 +73,7 @@
       "files": [
         {
           "name": "{$doc_root}/index.php",
-          "source": "/var/index.php",
+          "source": "/home/ubuntu/index.php",
           "action": "create",
           "owner": "www-data",
           "group": "www-data",
