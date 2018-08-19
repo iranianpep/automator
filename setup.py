@@ -5,7 +5,7 @@ import os
 import sys
 from shutil import rmtree
 
-from setuptools import setup, Command
+from setuptools import find_packages, setup, Command
 
 # Package meta-data.
 NAME = 'iautomate'
@@ -80,7 +80,7 @@ setup(
     author_email=EMAIL,
     python_requires=REQUIRES_PYTHON,
     url=URL,
-    packages=["iautomate", "helpers", "resources"],
+    packages=find_packages(exclude=["tests"]),
     entry_points={
         "console_scripts": [
             "iautomate = iautomate.__main__:main",
