@@ -1,7 +1,7 @@
 import unittest
 
 
-from iautomate.string_helper import StringHelper
+from iautomate.helpers.string_helper import StringHelper
 
 
 class TestStringHelper(unittest.TestCase):

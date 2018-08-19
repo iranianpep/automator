@@ -1,5 +1,5 @@
 from . import abstract_resource
-from . import string_helper
+from .helpers import string_helper
 import os
 
 
