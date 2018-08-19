@@ -35,8 +35,3 @@ class PackageResource(abstract_resource.AbstractResource):
                 self._run_shell_command('apt-get purge -y --auto-remove ' + self.name)
         else:
             print('Unsupported package action')
-
-        # after_tasks = package.get('after_tasks', None)
-        # if after_tasks:
-        #     print("Handle after tasks ...")
-        #     self.__handle_tasks(after_tasks)
