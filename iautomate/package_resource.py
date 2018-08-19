@@ -1,5 +1,5 @@
 from . import package_helper
-import abstract_resource
+from . import abstract_resource
 
 
 class PackageResource(abstract_resource.AbstractResource):

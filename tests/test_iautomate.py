@@ -19,7 +19,7 @@ class TestAutomator(unittest.TestCase):
     def test_config_file_invalid_file(self):
         try:
             IAutomate('invalid-config')
-        except IOError, e:
+        except IOError as e:
             self.assertEquals('Config file does not exist: invalid-config', e.message)
 
     def test_config(self):

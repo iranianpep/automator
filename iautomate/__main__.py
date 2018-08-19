@@ -14,7 +14,7 @@ def main():
     try:
         iautomate = IAutomate(config_file)
         iautomate.run()
-    except Exception, e:
+    except Exception as e:
         print('Error: ' + e.message)
         print(traceback.format_exc())
 
