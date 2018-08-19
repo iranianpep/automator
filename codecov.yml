@@ -1,4 +1,4 @@
 ignore:
   - "tests"
   - "setup.py"
-  - "__version__.py"
+  - "iautomate/__version__.py"
