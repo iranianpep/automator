@@ -11,9 +11,24 @@
           "name": "/home/ubuntu/index.php",
           "ensure": "present"
         }
+      ],
+      "directories": [
+        {
+          "name": "{$doc_root}",
+          "action": "remove"
+        }
       ]
     },
     {
+      "directories": [
+        {
+          "name": "{$doc_root}",
+          "action": "create",
+          "owner": "www-data",
+          "group": "www-data",
+          "mode": 644
+        }
+      ],
       "execs": [
         {
           "name": "apt-get update",
@@ -86,10 +101,6 @@
           "owner": "www-data",
           "group": "www-data",
           "mode": 644
-        },
-        {
-          "name": "{$doc_root}/index.html",
-          "action": "remove"
         }
       ]
     }

@@ -1,6 +1,5 @@
 import unittest
 from collections import OrderedDict
-
 from iautomate.resources.package_resource import PackageResource
 from iautomate.global_variables import GlobalVariables
 

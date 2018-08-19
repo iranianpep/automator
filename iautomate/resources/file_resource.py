@@ -16,9 +16,10 @@ class FileResource(abstract_resource.AbstractResource):
     @property
     def name(self):
         # update the name if doc_root is presented in it
-        if self.global_variables and 'doc_root' in self.global_variables:
+        if self.global_variables and self.global_variables.doc_root:
             original_name = self.__name
-            return string_helper.StringHelper.replace_placeholder(original_name, '{$doc_root}', self.global_variables['doc_root'])
+            return string_helper.StringHelper.replace_placeholder(original_name, '{$doc_root}',
+                                                                  self.global_variables.doc_root)
         else:
             return self.__name
 
@@ -97,5 +98,5 @@ class FileResource(abstract_resource.AbstractResource):
                 raise OSError('Unable to delete file: ' + self.name)
 
         # for the time being check 'present' after action
-        if self.ensure == 'present' and os.path.isfile(self.source) is not True:
+        if self.ensure == 'present' and os.path.isfile(self.name) is not True:
             raise OSError('File: ' + self.name + ' does not exist')
