@@ -1,9 +1,14 @@
 import sys
 from iautomate import IAutomate
 import traceback
+import os
 
 
 def main():
+    # check running as sudo:
+    if not os.geteuid() == 0:
+        sys.exit("\nYou must run this script as sudo\n")
+
     # check config file is provided
     try:
         config_file = sys.argv[1]
