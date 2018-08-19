@@ -20,7 +20,7 @@ class TestAutomator(unittest.TestCase):
         try:
             IAutomate('invalid-config')
         except OSError as e:
-            self.assertEquals('Config file does not exist: invalid-config', e.message)
+            self.assertEquals('Config file does not exist: invalid-config', str(e))
 
     def test_config(self):
         self.assertIsNotNone(self.iautomate.config)
@@ -29,7 +29,7 @@ class TestAutomator(unittest.TestCase):
         try:
             self.iautomate.config = ''
         except OSError as e:
-            self.assertEquals('Config cannot be empty', e.message)
+            self.assertEquals('Config cannot be empty', str(e))
 
     def test_is_sudo_enabled(self):
         # keep the original config
