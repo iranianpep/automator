@@ -64,7 +64,7 @@ class FileResource(abstract_resource.AbstractResource):
             if os.path.isfile(self.source) is not True:
                 raise OSError('Source file does not exist: ' + self.source)
 
-            # check the destination
+            # check the destination dir
             # TODO
 
             # copy the source to destination
@@ -85,3 +85,5 @@ class FileResource(abstract_resource.AbstractResource):
                 self._run_shell_command('rm ' + self.name)
 
                 # check if the file has been removed
+                if os.path.isfile(self.name) is not False:
+                    raise OSError('Unable to delete file: ' + self.name)

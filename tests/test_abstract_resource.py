@@ -66,13 +66,3 @@ class TestAbstractResource(unittest.TestCase):
 
         package = PackageResource(self.properties_with_sudo_false, self.global_variables_sudo_false)
         self.assertFalse(package.is_sudo_enabled())
-
-    def test_is_debug_mode(self):
-        package = PackageResource(self.properties)
-        self.assertFalse(package.is_debug_mode())
-
-        package = PackageResource(self.properties, self.global_variables_sudo_true)
-        self.assertTrue(package.is_debug_mode())
-
-        package = PackageResource(self.properties, self.global_variables_sudo_false)
-        self.assertFalse(package.is_debug_mode())

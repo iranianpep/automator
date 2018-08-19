@@ -7,17 +7,17 @@ from .resources import execution_resource
 from .resources import file_resource
 from .resources import package_resource
 from .resources import service_resource
+from . import global_variables
 
 
 class IAutomate(object):
     VARS_KEY = 'vars'
-    DEBUG_KEY = 'debug'
-    SUDO_KEY = 'sudo'
     TASKS_KEY = 'tasks'
 
     def __init__(self, config_file):
         self.config_file = config_file
         self.config = self.__parse_config_file()
+        self.global_variables = self.config.get(self.VARS_KEY, None)
 
     @property
     def config_file(self):
@@ -43,27 +43,18 @@ class IAutomate(object):
         else:
             raise OSError('Config cannot be empty')
 
+    @property
+    def global_variables(self):
+        return self.__global_variables
+
+    @global_variables.setter
+    def global_variables(self, variables):
+        # check if the config file is not empty
+        self.__global_variables = global_variables.GlobalVariables(variables)
+
     # parse the config file which is in json
     def __parse_config_file(self):
         return json.load(open(self.config_file), object_pairs_hook=OrderedDict)
-
-    # is in debug mode
-    def is_debug_mode(self):
-        if self.VARS_KEY in self.config and self.DEBUG_KEY in self.config[self.VARS_KEY] and self.config[self.VARS_KEY][self.DEBUG_KEY] is True:
-            return True
-        else:
-            return False
-
-    # check the global variable and resource specific sudo for sudo
-    def is_sudo_enabled(self, resource_sudo=None):
-        # if resource_sudo exists, it overwrites the global variable
-        if resource_sudo is True or resource_sudo is False:
-            return resource_sudo
-
-        if self.VARS_KEY in self.config and self.SUDO_KEY in self.config[self.VARS_KEY] and self.config[self.VARS_KEY][self.SUDO_KEY] is True:
-            return True
-        else:
-            return False
 
     # handle execution resource
     def __handle_execs(self, execs):
@@ -73,7 +64,7 @@ class IAutomate(object):
     # handle execution resource
     def __handle_exec(self, execution_properties):
         # instantiate execution model and run it
-        execution = execution_resource.ExecutionResource(execution_properties, self.config.get(self.VARS_KEY, None))
+        execution = execution_resource.ExecutionResource(execution_properties, self.global_variables)
         execution.run()
 
         if execution_properties.get(abstract_resource.AbstractResource.AFTER_TASKS_KEY, None):
@@ -87,7 +78,7 @@ class IAutomate(object):
     # handle package resource
     def __handle_package(self, package_properties):
         # instantiate package model and run it
-        package = package_resource.PackageResource(package_properties, self.config.get(self.VARS_KEY, None))
+        package = package_resource.PackageResource(package_properties, self.global_variables)
         package.run()
 
         if package_properties.get(abstract_resource.AbstractResource.AFTER_TASKS_KEY, None):
@@ -101,7 +92,7 @@ class IAutomate(object):
     # handle service resource
     def __handle_service(self, service_properties):
         # instantiate service model and run it
-        service = service_resource.ServiceResource(service_properties, self.config.get(self.VARS_KEY, None))
+        service = service_resource.ServiceResource(service_properties, self.global_variables)
         service.run()
 
         if service_properties.get(abstract_resource.AbstractResource.AFTER_TASKS_KEY, None):
@@ -116,7 +107,7 @@ class IAutomate(object):
     # handle file resource
     def __handle_file(self, file_properties):
         # instantiate file model and run it
-        file_resource_obj = file_resource.FileResource(file_properties, self.config.get(self.VARS_KEY, None))
+        file_resource_obj = file_resource.FileResource(file_properties, self.global_variables)
         file_resource_obj.run()
 
         if file_properties.get(abstract_resource.AbstractResource.AFTER_TASKS_KEY, None):

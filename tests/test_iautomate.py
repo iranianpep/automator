@@ -1,7 +1,6 @@
 import unittest
 import os
 from iautomate.iautomate import IAutomate
-import copy
 
 
 class TestAutomator(unittest.TestCase):
@@ -30,31 +29,3 @@ class TestAutomator(unittest.TestCase):
             self.iautomate.config = ''
         except OSError as e:
             self.assertEquals('Config cannot be empty', str(e))
-
-    def test_is_sudo_enabled(self):
-        # keep the original config
-        original_config = copy.deepcopy(self.iautomate.config)
-
-        self.iautomate.config['vars']['sudo'] = False
-        self.assertFalse(self.iautomate.is_sudo_enabled())
-
-        self.assertTrue(self.iautomate.is_sudo_enabled(True))
-        self.assertFalse(self.iautomate.is_sudo_enabled(False))
-        self.assertFalse(self.iautomate.is_sudo_enabled(None))
-
-        self.iautomate.config['vars']['sudo'] = True
-        self.assertTrue(self.iautomate.is_sudo_enabled())
-
-        self.assertTrue(self.iautomate.is_sudo_enabled(True))
-        self.assertFalse(self.iautomate.is_sudo_enabled(False))
-        self.assertTrue(self.iautomate.is_sudo_enabled(None))
-
-        del self.iautomate.config['vars']['sudo']
-        self.assertFalse(self.iautomate.is_sudo_enabled())
-
-        self.assertTrue(self.iautomate.is_sudo_enabled(True))
-        self.assertFalse(self.iautomate.is_sudo_enabled(False))
-        self.assertFalse(self.iautomate.is_sudo_enabled(None))
-
-        # revert all the changes back in the config
-        self.iautomate.config = original_config
