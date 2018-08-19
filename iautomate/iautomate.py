@@ -29,7 +29,7 @@ class IAutomate(object):
         if os.path.isfile(config_file) is True:
             self.__config_file = config_file
         else:
-            raise IOError('Config file does not exist: ' + config_file)
+            raise OSError('Config file does not exist: ' + config_file)
 
     @property
     def config(self):
@@ -41,7 +41,7 @@ class IAutomate(object):
         if config:
             self.__config = config
         else:
-            raise IOError('Config cannot be empty')
+            raise OSError('Config cannot be empty')
 
     # parse the config file which is in json
     def __parse_config_file(self):

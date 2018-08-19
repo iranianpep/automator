@@ -62,7 +62,7 @@ class FileResource(abstract_resource.AbstractResource):
         if self.action == 'create':
             # check if the source file exists
             if os.path.isfile(self.source) is not True:
-                raise IOError('Source file does not exist: ' + self.source)
+                raise OSError('Source file does not exist: ' + self.source)
 
             # check the destination
             # TODO
@@ -72,7 +72,7 @@ class FileResource(abstract_resource.AbstractResource):
 
             # check if the file has been copied
             if os.path.isfile(self.name) is not True:
-                raise IOError('Could not create the file: ' + self.name)
+                raise OSError('Could not create the file: ' + self.name)
 
             # set owner and group
             self._run_shell_command('chown ' + self.owner + ':' + self.group + ' ' + self.name)
