@@ -80,15 +80,15 @@ class FileResource(abstract_resource.AbstractResource):
             # copy the source to destination
             self._run_shell_command('cp ' + self.source + ' ' + self.name)
 
-            # check if the file has been copied
-            if os.path.isfile(self.name) is not True:
-                raise OSError('Unable to create the file: ' + self.name)
-
             # set owner and group
             self._run_shell_command('chown ' + self.owner + ':' + self.group + ' ' + self.name)
 
             # set mode
             self._run_shell_command('chmod ' + self.mode + ' ' + self.name)
+
+            # check if the file has been copied - after changing the group to avoid permission issue
+            if os.path.isfile(self.name) is not True:
+                raise OSError('Unable to create the file: ' + self.name)
         # remove the file only if the file exists
         elif self.action == 'remove' and os.path.isfile(self.name) is True:
             self._run_shell_command('rm ' + self.name)

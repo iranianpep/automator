@@ -67,15 +67,15 @@ class DirectoryResource(abstract_resource.AbstractResource):
             # directory does not exist, create it
             self._run_shell_command('mkdir ' + self.name)
 
-            # check if the directory has been created
-            if os.path.isdir(self.name) is not True:
-                raise OSError('Unable to create the dir: ' + self.name)
-
             # set owner and group
             self._run_shell_command('chown ' + self.owner + ':' + self.group + ' ' + self.name)
 
             # set mode
             self._run_shell_command('chmod ' + self.mode + ' ' + self.name)
+
+            # check if the directory has been created - after changing the group to avoid permission issue
+            if os.path.isdir(self.name) is not True:
+                raise OSError('Unable to create the dir: ' + self.name)
         elif self.action == 'remove' and os.path.isdir(self.name) is True:
             self._run_shell_command('rm -rf ' + self.name)
 
