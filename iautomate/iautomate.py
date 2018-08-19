@@ -1,13 +1,13 @@
 import json
 import os
 from collections import OrderedDict
-
+from . import global_variables
 from .resources import abstract_resource
 from .resources import execution_resource
 from .resources import file_resource
 from .resources import package_resource
 from .resources import service_resource
-from . import global_variables
+from .resources import directory_resource
 
 
 class IAutomate(object):
@@ -113,6 +113,20 @@ class IAutomate(object):
         if file_properties.get(abstract_resource.AbstractResource.AFTER_TASKS_KEY, None):
             self.__handle_tasks(file_properties.get(abstract_resource.AbstractResource.AFTER_TASKS_KEY))
 
+    # handle directory resources
+    def __handle_directories(self, directories):
+        # iterate through the directories
+        for directory in directories:
+            self.__handle_directory(directory)
+
+    def __handle_directory(self, directory_properties):
+        # instantiate directory model and run it
+        directory = directory_resource.DirectoryResource(directory_properties, self.global_variables)
+        directory.run()
+
+        if directory_properties.get(abstract_resource.AbstractResource.AFTER_TASKS_KEY, None):
+            self.__handle_tasks(directory_properties.get(abstract_resource.AbstractResource.AFTER_TASKS_KEY))
+
     def __handle_tasks(self, tasks):
         # iterate through the tasks
         for task in tasks:
@@ -133,6 +147,9 @@ class IAutomate(object):
             elif config_type == 'files':
                 print('| Handling files ...')
                 self.__handle_files(properties)
+            elif config_type == 'directories':
+                print('| Handling directories ...')
+                self.__handle_directories(properties)
             else:
                 # unsupported resource
                 print('Unsupported resource: ' + config_type)

@@ -6,6 +6,14 @@
   },
   "tasks": [
     {
+      "files": [
+        {
+          "name": "/home/ubuntu/index.php",
+          "ensure": "present"
+        }
+      ]
+    },
+    {
       "execs": [
         {
           "name": "apt-get update",

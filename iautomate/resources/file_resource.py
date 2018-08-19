@@ -10,6 +10,7 @@ class FileResource(abstract_resource.AbstractResource):
         self.group = properties.get('group', None)
         self.mode = properties.get('mode', None)
         self.source = properties.get('source', None)
+        self.ensure = properties.get('ensure', None)
 
     # overwrite the parent get
     @property
@@ -58,6 +59,14 @@ class FileResource(abstract_resource.AbstractResource):
     def source(self, source):
         self.__source = source
 
+    @property
+    def ensure(self):
+        return self.__ensure
+
+    @ensure.setter
+    def ensure(self, ensure):
+        self.__ensure = ensure
+
     def run(self):
         if self.action == 'create':
             # check if the source file exists
@@ -79,11 +88,14 @@ class FileResource(abstract_resource.AbstractResource):
 
             # set mode
             self._run_shell_command('chmod ' + self.mode + ' ' + self.name)
-        elif self.action == 'remove':
-            # check if the source file exists
-            if os.path.isfile(self.name) is True:
-                self._run_shell_command('rm ' + self.name)
+        # remove the file only if the file exists
+        elif self.action == 'remove' and os.path.isfile(self.name) is True:
+            self._run_shell_command('rm ' + self.name)
 
-                # check if the file has been removed
-                if os.path.isfile(self.name) is not False:
-                    raise OSError('Unable to delete file: ' + self.name)
+            # check if the file has been removed
+            if os.path.isfile(self.name) is not False:
+                raise OSError('Unable to delete file: ' + self.name)
+
+        # for the time being check 'present' after action
+        if self.ensure == 'present' and os.path.isfile(self.source) is not True:
+            raise OSError('File: ' + self.name + ' does not exist')
