@@ -68,7 +68,7 @@ class DirectoryResource(abstract_resource.AbstractResource):
             self._run_shell_command('mkdir ' + self.name)
 
             # check if the directory has been created
-            if os.path.isdir(self.name) is not False:
+            if os.path.isdir(self.name) is not True:
                 raise OSError('Unable to create the dir: ' + self.name)
 
             # set owner and group

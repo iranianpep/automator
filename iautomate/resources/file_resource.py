@@ -82,7 +82,7 @@ class FileResource(abstract_resource.AbstractResource):
 
             # check if the file has been copied
             if os.path.isfile(self.name) is not True:
-                raise OSError('Could not create the file: ' + self.name)
+                raise OSError('Unable to create the file: ' + self.name)
 
             # set owner and group
             self._run_shell_command('chown ' + self.owner + ':' + self.group + ' ' + self.name)
